@@ -1,5 +1,5 @@
 <script>
-  import Scroller from "@sveltejs/svelte-scroller";
+  import Scroller from "./Scroller.svelte";
   import Revenue from "./Revenue.svelte";
 
   let index;
@@ -20,6 +20,7 @@
     <section>This is the first section.</section>
     <section>This is the second section.</section>
     <section>This is the third section.</section>
+    <section>This is the fourth section.</section>
   </div>
 </Scroller>
 
