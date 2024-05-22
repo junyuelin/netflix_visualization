@@ -2,6 +2,10 @@
   import Scroller from "./Scroller.svelte";
   import Revenue from "./Revenue.svelte";
   import Map from "./Map.svelte";
+  import Timeline from "./Timeline.svelte";
+  import SVOD from "./SVOD.svelte";
+  import AVOD from "./AVOD.svelte";
+  import Original from "./Original.svelte";
 
   let index;
 </script>
@@ -17,16 +21,31 @@
   </div>
 
   <div class="foreground" slot="foreground">
-    <section class="first-session"> </section>
+    <section class="first-session">
+      <h1 class="title">Your Title Here</h1>
+      <!-- Include the Timeline component within the first session -->
+      <Timeline />
+    </section>
     <section>
       <!-- Include the Revenue component within the second section -->
       <Revenue {index} />
     </section>
     <section>
-      <!-- Include the Map component within the third section -->
+      <!-- Include the SVOD component within the third section -->
+      <SVOD />
+    </section>
+    <section>
+      <!-- Include the Map component within the fourth section -->
       <Map />
     </section>
-    <section>This is the fourth section.</section>
+    <section>
+      <!-- Include the Map component within the fifth section -->
+      <Original />
+    </section>
+    <section>
+      <!-- Include the Map component within the sixth section -->
+      <AVOD />
+    </section>
   </div>
 </Scroller>
 
@@ -51,7 +70,12 @@
     background-size: cover;
     background-position: center;
   }
-
+   .title {
+    color: white;
+    text-align: center;
+    font-size: 36px; /* Adjust the font size as needed */
+    margin-top: 50px; /* Adjust the margin-top as needed */
+  }
   section {
     height: 80vh;
     outline: magenta solid 3px;
