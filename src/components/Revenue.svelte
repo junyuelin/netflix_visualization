@@ -79,12 +79,12 @@
   }
 
   // Watch for changes in the index and container to conditionally draw the chart
-  $: if (index === 2 && container) {
+  $: if (index === 1 && container) {
     drawChart();
   }
 </script>
 
-<div class="content" class:visible={index === 2}>
+<div class="content" class:visible={index === 1}>
   <div class="chart-container" bind:this={container}>
     <!-- The chart will be drawn inside this div -->
   </div>
