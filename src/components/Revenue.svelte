@@ -57,6 +57,25 @@
       .attr('class', 'y-axis')
       .call(d3.axisLeft(y));
 
+    // Create the circles for data points
+    const circles = svg.selectAll("circle")
+      .data(data)
+      .enter().append("circle")
+      .attr("cx", d => x(d.year))
+      .attr("cy", d => y(d.revenue))
+      .attr("r", 4) // Set initial radius
+      .attr("fill", "steelblue")
+      .on("mouseover", function () {
+        d3.select(this)
+          .attr("r", 8) // Increase radius on hover
+          .attr("fill", "orange"); // Change color on hover
+      })
+      .on("mouseout", function () {
+        d3.select(this)
+          .attr("r", 4) // Restore radius on mouseout
+          .attr("fill", "steelblue"); // Restore color on mouseout
+      });
+      
     // Create the line path element
     const path = svg.append('path')
       .datum(data)
@@ -68,14 +87,32 @@
 
     // Animation for the line path
     const totalLength = path.node().getTotalLength();
+    const revenueText = svg.append('text')
+      .attr('class', 'revenue-text')  // Add a class here
+      .attr('x', 30)
+      .attr('y', 100)
+      .attr('dy', '.35em')
+      .text('');
 
     path
       .attr('stroke-dasharray', `${totalLength} ${totalLength}`)
       .attr('stroke-dashoffset', totalLength)
       .transition()
-      .duration(2000)
+      .duration(10000)
       .ease(d3.easeLinear)
-      .attr('stroke-dashoffset', 0);
+      .attr('stroke-dashoffset', 0)
+      .on('start', function () {
+        // Prepare for the animation
+        d3.active(this)
+          .tween('text', function () {
+            const interpolator = d3.interpolateNumber(0, data.length - 1);
+            return function (t) {
+              const index = Math.floor(interpolator(t));
+              const currentData = data[index];
+              revenueText.text(`$${currentData.revenue} (${currentData.year})`);
+            };
+          });
+      });
   }
 
   // Watch for changes in the index and container to conditionally draw the chart
@@ -102,9 +139,8 @@
 <style>
   .content {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* Change flex direction to column */
+    align-items: center; /* Align items in the center */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease-in-out;
@@ -114,25 +150,24 @@
     visibility: visible;
   }
   .chart-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    max-width: 50%;
+    max-width: 80%; /* Adjust width as needed */
   }
   .text-container {
-    flex: 1;
-    padding-left: 20px;
-    padding-right: 100px;
-    max-width: 25%;
+    padding-top: 20px; /* Add padding at the top */
+    max-width: 80%; /* Adjust width as needed */
+    text-align: center; /* Center-align text */
   }
-  .line {
+
+
+  :global(.line) {
     fill: none;
     stroke: steelblue;
-    stroke-width: 2;
+    stroke-width: 3;
   }
-  .axis path,
-  .axis line {
-    fill: none;
-    shape-rendering: crispEdges;
+
+  :global(.revenue-text) {
+    font-size: 40px;
+    fill: black;
+    font-weight: bold;
   }
 </style>
