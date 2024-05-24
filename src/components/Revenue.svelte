@@ -7,6 +7,7 @@
 
   let data = [];
   let container1, container2; // Separate containers for each chart
+  let textContainer, replayButton;
 
   // URL of the CSV file
   const csvUrl = 'https://raw.githubusercontent.com/junyuelin/netflix_visualization/main/netflix%20static/revenue/netflix-annual-revenue-2002-2023.csv';
@@ -14,6 +15,26 @@
   // Load and process the data
   onMount(async () => {
     await fetchData();
+
+    // Hide charts when component mounts
+    const hideButton = document.getElementById('hideButton');
+    let chartsVisible = true;
+
+    hideButton.addEventListener('click', () => {
+      if (chartsVisible) {
+        container1.style.display = 'none';
+        container2.style.display = 'none';
+        textContainer.style.display = 'none';
+        chartsVisible = false;
+        hideButton.innerText = 'Revenue Line Charts';
+      } else {
+        container1.style.display = 'block'; // Or 'flex', or whatever display value you want
+        container2.style.display = 'block';
+        textContainer.style.display = 'block';
+        chartsVisible = true;
+        hideButton.innerText = 'Subscriber Charts';
+      }
+    });
   });
 
   // Function to fetch and process data
@@ -188,17 +209,10 @@
           .range([0, width]);
 
       // Calculate growth rate
-      const growthRates = [];
-      for (let i = 0; i < data.length - 1; i++) {
-          const currentRevenue = data[i].revenue;
-          const nextRevenue = data[i + 1].revenue;
-          if (currentRevenue !== 0) {
-              const growthRate = (nextRevenue - currentRevenue) / currentRevenue;
-              growthRates.push(growthRate);
-          } else {
-              // If the current revenue is zero, set growth rate to zero
-              growthRates.push(0);
-          }
+      const growthRates = [NaN]; // Push NaN for the first growth rate
+      for (let i = 1; i < data.length; i++) {
+          const growthRate = ((data[i].revenue - data[i - 1].revenue) / data[i - 1].revenue);
+          growthRates.push(growthRate);
       }
 
       const y = d3.scaleLinear()
@@ -211,7 +225,8 @@
       // Function to generate the path with gaps for dots
       const generatePathWithGaps = () => {
           let path = "";
-          for (let i = 0; i < data.length - 1; i++) {
+          console.log(data)
+          for (let i = 1; i < data.length - 1; i++) {
               const x1 = x(data[i].year);
               const y1 = y(growthRates[i]);
               const x2 = x(data[i + 1].year);
@@ -221,7 +236,7 @@
               const offsetX = Math.cos(angle) * gapSize;
               const offsetY = Math.sin(angle) * gapSize;
 
-              if (i === 0) {
+              if (i === 1) {
                   path += `M${x1 + offsetX},${y1 + offsetY}`;
               } else {
                   path += `L${x1 + offsetX},${y1 + offsetY}`;
@@ -233,12 +248,12 @@
 
       // Add the x-axis
       svg.append('g')
-          .attr('class', 'x-axis')
-          .attr('transform', `translate(0,${height})`)
-          .call(d3.axisBottom(x).ticks(data.length).tickFormat(d3.format('d')))
-          .selectAll('text') // Select all text elements
-          .attr('transform', 'rotate(-45) translate(-10, 0)') // Rotate and translate the labels
-          .style('fill', 'black'); // Set color for axis labels
+        .attr('class', 'x-axis')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x).ticks(data.length).tickFormat(d3.format('d')))
+        .selectAll('text') // Select all text elements
+        .attr('transform', 'rotate(-45) translate(-10, 0)') // Rotate and translate the labels
+        .style('fill', 'black'); // Set color for axis labels
 
       // Add the y-axis
       svg.append('g')
@@ -258,21 +273,20 @@
 
       // Create a group for the circles
       const dotGroup = svg.append('g').attr('class', 'dot-group');
-
       // Create the circles for data points
       dotGroup.selectAll("circle")
-          .data(data.slice(0, -1)) // Exclude the last year as there's no growth rate for it
+          .data(data.slice(1)) // Exclude the first element
           .enter().append("circle")
-          .attr("cx", (d, i) => x(d.year))
-          .attr("cy", (d, i) => y(growthRates[i]))
+          .attr("cx", (d, i) => x(data[i + 1].year)) // Use index + 1 to match with the sliced data
+          .attr("cy", (d, i) => y(growthRates[i + 1])) // Use index + 1 to match with the sliced data
           .attr("r", 4) // Set initial radius
           .attr("fill", "steelblue")
-          .on("mouseover", function (event, d, i) {
+          .on("mouseover", function (event, d) {
               d3.select(this)
                   .attr("r", 8); // Increase radius on hover
               tooltip
                   .style("display", "block")
-                  .html(`Year: ${d.year}<br>Growth Rate: ${(growthRates[i] * 100).toFixed(2)}%`)
+                  .html(`Year: ${d.year}<br>Growth Rate: ${(growthRates[data.indexOf(d)] * 100).toFixed(2)}%`)
                   .style("left", `${event.pageX + 5}px`)
                   .style("top", `${event.pageY - 28}px`);
           })
@@ -324,10 +338,12 @@
       drawGrowthRateChart(container2); // Call function to draw the growth rate chart
     }
   }
+
 </script>
 
-<div class="content" class:visible={index === 1}>
-  <svg class="replay-button" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" on:click={replayChart}>
+<div class="content" class:visible={index === 1} >
+<button id="hideButton">Subscriber Charts</button>
+  <svg class="replay-button" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" bind:this={replayButton} on:click={replayChart}>
     <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="2"/>
     <path d="M18 12L24 20L18 28V12Z" fill="black"/>
   </svg>
@@ -336,7 +352,7 @@
     <div class="chart-container" bind:this={container1}></div>
     <div class="chart-container" bind:this={container2}></div>
   </div>
-  <div class="text-container">
+  <div class="text-container" bind:this={textContainer}>
     <h2>Netflix Annual Revenue</h2>
     <p>
       This line chart represents Netflix's annual revenue from 2002 to 2023.
