@@ -6,7 +6,7 @@
   let replayClicked = false;
 
   let data = [];
-  let container;
+  let container1, container2; // Separate containers for each chart
 
   // URL of the CSV file
   const csvUrl = 'https://raw.githubusercontent.com/junyuelin/netflix_visualization/main/netflix%20static/revenue/netflix-annual-revenue-2002-2023.csv';
@@ -25,7 +25,7 @@
   }
 
   // Function to draw the chart
-  function drawChart() {
+  function drawChart(container) {
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
     const width = 600 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
@@ -78,7 +78,10 @@
     svg.append('g')
       .attr('class', 'x-axis')
       .attr('transform', `translate(0,${height})`)
-      .call(d3.axisBottom(x).ticks(data.length).tickFormat(d3.format('d')));
+      .call(d3.axisBottom(x).ticks(data.length).tickFormat(d3.format('d')))
+      .selectAll('text') // Select all text elements
+      .attr('transform', 'rotate(-45) translate(-10, 0)') // Rotate and translate the labels
+      .style('fill', 'black'); // Set color for axis labels
 
     // Add the y-axis
     svg.append('g')
@@ -164,20 +167,161 @@
           });
       });
   }
+
+  function drawGrowthRateChart(container) {
+      const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+      const width = 600 - margin.left - margin.right;
+      const height = 400 - margin.top - margin.bottom;
+
+      // Clear previous content
+      d3.select(container).selectAll('*').remove();
+
+      const svg = d3.select(container)
+          .append('svg')
+          .attr('width', width + margin.left + margin.right)
+          .attr('height', height + margin.top + margin.bottom)
+          .append('g')
+          .attr('transform', `translate(${margin.left},${margin.top})`);
+
+      const x = d3.scaleLinear()
+          .domain(d3.extent(data, d => d.year))
+          .range([0, width]);
+
+      // Calculate growth rate
+      const growthRates = [];
+      for (let i = 0; i < data.length - 1; i++) {
+          const currentRevenue = data[i].revenue;
+          const nextRevenue = data[i + 1].revenue;
+          if (currentRevenue !== 0) {
+              const growthRate = (nextRevenue - currentRevenue) / currentRevenue;
+              growthRates.push(growthRate);
+          } else {
+              // If the current revenue is zero, set growth rate to zero
+              growthRates.push(0);
+          }
+      }
+
+      const y = d3.scaleLinear()
+          .domain([d3.min(growthRates), d3.max(growthRates)])
+          .nice()
+          .range([height, 0]);
+
+      const gapSize = 5; // Adjust this value to control the size of the gap
+
+      // Function to generate the path with gaps for dots
+      const generatePathWithGaps = () => {
+          let path = "";
+          for (let i = 0; i < data.length - 1; i++) {
+              const x1 = x(data[i].year);
+              const y1 = y(growthRates[i]);
+              const x2 = x(data[i + 1].year);
+              const y2 = y(growthRates[i + 1]);
+
+              const angle = Math.atan2(y2 - y1, x2 - x1);
+              const offsetX = Math.cos(angle) * gapSize;
+              const offsetY = Math.sin(angle) * gapSize;
+
+              if (i === 0) {
+                  path += `M${x1 + offsetX},${y1 + offsetY}`;
+              } else {
+                  path += `L${x1 + offsetX},${y1 + offsetY}`;
+              }
+              path += `L${x2 - offsetX},${y2 - offsetY}`;
+          }
+          return path;
+      };
+
+      // Add the x-axis
+      svg.append('g')
+          .attr('class', 'x-axis')
+          .attr('transform', `translate(0,${height})`)
+          .call(d3.axisBottom(x).ticks(data.length).tickFormat(d3.format('d')))
+          .selectAll('text') // Select all text elements
+          .attr('transform', 'rotate(-45) translate(-10, 0)') // Rotate and translate the labels
+          .style('fill', 'black'); // Set color for axis labels
+
+      // Add the y-axis
+      svg.append('g')
+          .attr('class', 'y-axis')
+          .call(d3.axisLeft(y));
+
+      // Create a group for the line
+      const lineGroup = svg.append('g').attr('class', 'line-group');
+
+      // Create the line path element with gaps
+      lineGroup.append('path')
+          .attr('class', 'line')
+          .attr('fill', 'none')
+          .attr('stroke', 'steelblue')
+          .attr('stroke-width', 1.5)
+          .attr('d', generatePathWithGaps());
+
+      // Create a group for the circles
+      const dotGroup = svg.append('g').attr('class', 'dot-group');
+
+      // Create the circles for data points
+      dotGroup.selectAll("circle")
+          .data(data.slice(0, -1)) // Exclude the last year as there's no growth rate for it
+          .enter().append("circle")
+          .attr("cx", (d, i) => x(d.year))
+          .attr("cy", (d, i) => y(growthRates[i]))
+          .attr("r", 4) // Set initial radius
+          .attr("fill", "steelblue")
+          .on("mouseover", function (event, d, i) {
+              d3.select(this)
+                  .attr("r", 8); // Increase radius on hover
+              tooltip
+                  .style("display", "block")
+                  .html(`Year: ${d.year}<br>Growth Rate: ${(growthRates[i] * 100).toFixed(2)}%`)
+                  .style("left", `${event.pageX + 5}px`)
+                  .style("top", `${event.pageY - 28}px`);
+          })
+          .on("mouseout", function () {
+              d3.select(this)
+                  .attr("r", 4); // Restore radius on mouseout
+              tooltip.style("display", "none");
+          });
+
+      // Add the tooltip element
+      const tooltip = d3.select("body").append("div")
+          .attr("class", "tooltip")
+          .style("position", "absolute")
+          .style("background", "rgba(0, 0, 0, 0.7)")
+          .style("color", "white")
+          .style("padding", "5px 10px")
+          .style("border-radius", "4px")
+          .style("display", "none")
+          .style("pointer-events", "none");
+
+      // Animation for the line path
+      const path = lineGroup.select('path');
+      const totalLength = path.node().getTotalLength();
+
+      path
+          .attr('stroke-dasharray', `${totalLength} ${totalLength}`)
+          .attr('stroke-dashoffset', totalLength)
+          .transition()
+          .duration(3000)
+          .ease(d3.easeLinear)
+          .attr('stroke-dashoffset', 0);
+  }
+
   // Function to replay the chart
   function replayChart() {
     replayClicked = true;
   }
 
   // Watch for changes in the index and container to conditionally draw the chart
-  $: if (index === 1 && container) {
+  $: if (index === 1 && container1 && container2) {
     if (replayClicked) {
       fetchData().then(() => {
-        drawChart();
+        drawChart(container1);
+        drawGrowthRateChart(container2); // Call function to draw the growth rate chart
         replayClicked = false;
       });
     } else {
-      drawChart();
+      drawChart(container1);
+      drawGrowthRateChart(container2); // Call function to draw the growth rate chart
     }
   }
 </script>
@@ -188,8 +332,9 @@
     <path d="M18 12L24 20L18 28V12Z" fill="black"/>
   </svg>
 
-  <div class="chart-container" bind:this={container}>
-    <!-- The chart will be drawn inside this div -->
+  <div class="charts-container">
+    <div class="chart-container" bind:this={container1}></div>
+    <div class="chart-container" bind:this={container2}></div>
   </div>
   <div class="text-container">
     <h2>Netflix Annual Revenue</h2>
@@ -214,6 +359,12 @@
   .content.visible {
     opacity: 1;
     visibility: visible;
+  }
+
+  .charts-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
   }
   .chart-container {
     max-width: 80%;
