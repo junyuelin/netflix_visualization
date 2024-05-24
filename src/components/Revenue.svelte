@@ -225,7 +225,6 @@
       // Function to generate the path with gaps for dots
       const generatePathWithGaps = () => {
           let path = "";
-          console.log(data)
           for (let i = 1; i < data.length - 1; i++) {
               const x1 = x(data[i].year);
               const y1 = y(growthRates[i]);
@@ -326,7 +325,7 @@
   }
 
   // Watch for changes in the index and container to conditionally draw the chart
-  $: if (index === 1 && container1 && container2) {
+  $: if ((index === 1 || index === 2) && container1 && container2) {
     if (replayClicked) {
       fetchData().then(() => {
         drawChart(container1);
@@ -341,7 +340,7 @@
 
 </script>
 
-<div class="content" class:visible={index === 1} >
+<div class="content" class:visible={index === 1 || index === 2}>
 <button id="hideButton">Subscriber Charts</button>
   <svg class="replay-button" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" bind:this={replayButton} on:click={replayChart}>
     <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="2"/>
