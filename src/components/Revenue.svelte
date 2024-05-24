@@ -2,6 +2,8 @@
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
   export let index;
+  // variable to track whether replay button is clicked
+  let replayClicked = false;
 
   let data = [];
   let container;
@@ -11,11 +13,16 @@
 
   // Load and process the data
   onMount(async () => {
+    await fetchData();
+  });
+
+  // Function to fetch and process data
+  async function fetchData() {
     const response = await d3.csv(csvUrl, d => {
       return { year: +d.year, revenue: +d.revenue.replace(/"/g, '').replace(/,/g, '') };
     });
     data = response;
-  });
+  }
 
   // Function to draw the chart
   function drawChart() {
@@ -103,7 +110,6 @@
       .on("mouseover", function (event, d) {
         d3.select(this)
           .attr("r", 8) // Increase radius on hover
-          .attr("fill", "orange"); // Change color on hover
         tooltip
           .style("display", "block")
           .html(`Year: ${d.year}<br>Revenue: $${d.revenue.toLocaleString()}`)
@@ -131,6 +137,7 @@
     // Animation for the line path
     const path = lineGroup.select('path');
     const totalLength = path.node().getTotalLength();
+    
     const revenueText = svg.append('text')
       .attr('class', 'revenue-text')
       .attr('x', 30)
@@ -152,19 +159,35 @@
             return function (t) {
               const index = Math.floor(interpolator(t));
               const currentData = data[index];
-              revenueText.text(`$${currentData.revenue} (${currentData.year})`);
+              revenueText.text(`$${currentData.revenue.toLocaleString()} millions in ${currentData.year}`);
             };
           });
       });
   }
+  // Function to replay the chart
+  function replayChart() {
+    replayClicked = true;
+  }
 
   // Watch for changes in the index and container to conditionally draw the chart
   $: if (index === 1 && container) {
-    drawChart();
+    if (replayClicked) {
+      fetchData().then(() => {
+        drawChart();
+        replayClicked = false;
+      });
+    } else {
+      drawChart();
+    }
   }
 </script>
 
 <div class="content" class:visible={index === 1}>
+  <svg class="replay-button" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" on:click={replayChart}>
+    <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="2"/>
+    <path d="M18 12L24 20L18 28V12Z" fill="black"/>
+  </svg>
+
   <div class="chart-container" bind:this={container}>
     <!-- The chart will be drawn inside this div -->
   </div>
@@ -216,7 +239,6 @@
   :global(.revenue-text) {
     font-size: 20px; /* Adjust the font size */
     fill: black; /* Text color */
-    font-weight: bold; /* Font weight */
   }
 
   :global(.tooltip) {
