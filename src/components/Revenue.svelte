@@ -20,7 +20,7 @@
   // Function to draw the chart
   function drawChart() {
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
-    const width = 600 - margin.left - margin.right; // Adjust width to fit in the left half
+    const width = 600 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
     // Clear previous content
@@ -42,9 +42,30 @@
       .nice()
       .range([height, 0]);
 
-    const line = d3.line()
-      .x(d => x(d.year))
-      .y(d => y(d.revenue));
+    const gapSize = 5; // Adjust this value to control the size of the gap
+
+    // Function to generate the path with gaps for dots
+    const generatePathWithGaps = () => {
+      let path = "";
+      for (let i = 0; i < data.length - 1; i++) {
+        const x1 = x(data[i].year);
+        const y1 = y(data[i].revenue);
+        const x2 = x(data[i + 1].year);
+        const y2 = y(data[i + 1].revenue);
+
+        const angle = Math.atan2(y2 - y1, x2 - x1);
+        const offsetX = Math.cos(angle) * gapSize;
+        const offsetY = Math.sin(angle) * gapSize;
+
+        if (i === 0) {
+          path += `M${x1 + offsetX},${y1 + offsetY}`;
+        } else {
+          path += `L${x1 + offsetX},${y1 + offsetY}`;
+        }
+        path += `L${x2 - offsetX},${y2 - offsetY}`;
+      }
+      return path;
+    };
 
     // Add the x-axis
     svg.append('g')
@@ -57,38 +78,61 @@
       .attr('class', 'y-axis')
       .call(d3.axisLeft(y));
 
+    // Create a group for the line
+    const lineGroup = svg.append('g').attr('class', 'line-group');
+
+    // Create the line path element with gaps
+    lineGroup.append('path')
+      .attr('class', 'line')
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1.5)
+      .attr('d', generatePathWithGaps());
+
+    // Create a group for the circles
+    const dotGroup = svg.append('g').attr('class', 'dot-group');
+
     // Create the circles for data points
-    const circles = svg.selectAll("circle")
+    dotGroup.selectAll("circle")
       .data(data)
       .enter().append("circle")
       .attr("cx", d => x(d.year))
       .attr("cy", d => y(d.revenue))
       .attr("r", 4) // Set initial radius
       .attr("fill", "steelblue")
-      .on("mouseover", function () {
+      .on("mouseover", function (event, d) {
         d3.select(this)
           .attr("r", 8) // Increase radius on hover
           .attr("fill", "orange"); // Change color on hover
+        tooltip
+          .style("display", "block")
+          .html(`Year: ${d.year}<br>Revenue: $${d.revenue.toLocaleString()}`)
+          .style("left", `${event.pageX + 5}px`)
+          .style("top", `${event.pageY - 28}px`);
       })
       .on("mouseout", function () {
         d3.select(this)
           .attr("r", 4) // Restore radius on mouseout
           .attr("fill", "steelblue"); // Restore color on mouseout
+        tooltip.style("display", "none");
       });
-      
-    // Create the line path element
-    const path = svg.append('path')
-      .datum(data)
-      .attr('class', 'line')
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1.5)
-      .attr('d', line);
+
+    // Add the tooltip element
+    const tooltip = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("background", "rgba(0, 0, 0, 0.7)")
+      .style("color", "white")
+      .style("padding", "5px 10px")
+      .style("border-radius", "4px")
+      .style("display", "none")
+      .style("pointer-events", "none");
 
     // Animation for the line path
+    const path = lineGroup.select('path');
     const totalLength = path.node().getTotalLength();
     const revenueText = svg.append('text')
-      .attr('class', 'revenue-text')  // Add a class here
+      .attr('class', 'revenue-text')
       .attr('x', 30)
       .attr('y', 100)
       .attr('dy', '.35em')
@@ -98,11 +142,10 @@
       .attr('stroke-dasharray', `${totalLength} ${totalLength}`)
       .attr('stroke-dashoffset', totalLength)
       .transition()
-      .duration(10000)
+      .duration(3000)
       .ease(d3.easeLinear)
       .attr('stroke-dashoffset', 0)
       .on('start', function () {
-        // Prepare for the animation
         d3.active(this)
           .tween('text', function () {
             const interpolator = d3.interpolateNumber(0, data.length - 1);
@@ -139,8 +182,8 @@
 <style>
   .content {
     display: flex;
-    flex-direction: column; /* Change flex direction to column */
-    align-items: center; /* Align items in the center */
+    flex-direction: column;
+    align-items: center;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease-in-out;
@@ -150,14 +193,13 @@
     visibility: visible;
   }
   .chart-container {
-    max-width: 80%; /* Adjust width as needed */
+    max-width: 80%;
   }
   .text-container {
-    padding-top: 20px; /* Add padding at the top */
-    max-width: 80%; /* Adjust width as needed */
-    text-align: center; /* Center-align text */
+    padding-top: 20px;
+    max-width: 80%;
+    text-align: center;
   }
-
 
   :global(.line) {
     fill: none;
@@ -165,9 +207,28 @@
     stroke-width: 3;
   }
 
+  :global(.dot-group circle) {
+    fill: steelblue;
+    stroke: white;
+    stroke-width: 2;
+  }
+
   :global(.revenue-text) {
-    font-size: 40px;
-    fill: black;
-    font-weight: bold;
+    font-size: 20px; /* Adjust the font size */
+    fill: black; /* Text color */
+    font-weight: bold; /* Font weight */
+  }
+
+  :global(.tooltip) {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+    transform: translate(-50%, -100%); /* Center the tooltip horizontally, move it above the cursor */
+    transition: transform 0.1s ease-out;
+    z-index: 999; /* Ensure the tooltip appears above other elements */
   }
 </style>
