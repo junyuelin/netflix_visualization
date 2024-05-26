@@ -22,7 +22,7 @@
 
   <div class="foreground" slot="foreground">
     <section class="first-session">
-      <h1 class="title">Your Title Here</h1>
+      <h1 class="title">The Evolution Story of the Streaming Giant Netflix: Adapting Profit Models in a Rapidly Changing Era</h1>
       <!-- Include the Timeline component within the first session -->
       <Timeline />
     </section>
@@ -73,7 +73,7 @@
    .title {
     color: white;
     text-align: center;
-    font-size: 36px; /* Adjust the font size as needed */
+    font-size: 25px; /* Adjust the font size as needed */
     margin-top: 50px; /* Adjust the margin-top as needed */
   }
   section {
