@@ -1,5 +1,5 @@
 name,ISO,year
-United States of America,USA,1997
+USA,USA,1997
 Canada,CAN,2010
 Anguilla,AIA,2011
 Antigua and Barbuda,ATG,2011
@@ -8,7 +8,7 @@ Aruba,ABW,2011
 Bahamas,BHS,2011
 Barbados,BRB,2011
 Belize,BLZ,2011
-Bolivia (Plurinational State of),BOL,2011
+Bolivia,BOL,2011
 "Bonaire, Sint Eustatius and Saba",BES,2011
 Bouvet Island,BVT,2011
 Brazil,BRA,2011
@@ -49,7 +49,7 @@ Suriname,SUR,2011
 Trinidad and Tobago,TTO,2011
 Turks and Caicos Islands,TCA,2011
 Uruguay,URY,2011
-Venezuela (Bolivarian Republic of),VEN,2011
+Venezuela,VEN,2011
 Virgin Islands (British),VGB,2011
 Virgin Islands (U.S.),VIR,2011
 Denmark,DNK,2012
@@ -57,7 +57,7 @@ Finland,FIN,2012
 Ireland,IRL,2012
 Norway,NOR,2012
 Sweden,SWE,2012
-United Kingdom of Great Britain and Northern Ireland,GBR,2012
+England,GBR,2012
 Netherlands,NLD,2013
 Austria,AUT,2014
 Belgium,BEL,2014
@@ -89,6 +89,7 @@ Belarus,BLR,2016
 Benin,BEN,2016
 Bermuda,BMU,2016
 Bhutan,BTN,2016
+Ukraine,UKR,2016
 Bosnia and Herzegovina,BIH,2016
 Botswana,BWA,2016
 British Indian Ocean Territory,IOT,2016
@@ -104,13 +105,15 @@ Chad,TCD,2016
 Christmas Island,CXR,2016
 Cocos (Keeling) Islands,CCK,2016
 Comoros,COM,2016
-Congo,COG,2016
-"Congo, Democratic Republic of the",COD,2016
+Republic of the Congo,COG,2016
+Democratic Republic of the Congo,COD,2016
+Somaliland,ABV,2016
+United Republic of Tanzania,TZA,2016
 Cook Islands,COK,2016
-Côte d'Ivoire,CIV,2016
+Ivory Coast,CIV,2016
 Croatia,HRV,2016
 Cyprus,CYP,2016
-Czechia,CZE,2016
+Czech Republic,CZE,2016
 Djibouti,DJI,2016
 Egypt,EGY,2016
 Equatorial Guinea,GNQ,2016
@@ -139,7 +142,7 @@ Hong Kong,HKG,2016
 Hungary,HUN,2016
 Iceland,ISL,2016
 Indonesia,IDN,2016
-Iran (Islamic Republic of),IRN,2016
+Iran,IRN,2016
 Iraq,IRQ,2016
 Isle of Man,IMN,2016
 Israel,ISR,2016
@@ -148,10 +151,10 @@ Jordan,JOR,2016
 Kazakhstan,KAZ,2016
 Kenya,KEN,2016
 Kiribati,KIR,2016
-"Korea, Republic of",KOR,2016
+South Korea,KOR,2016
 Kuwait,KWT,2016
 Kyrgyzstan,KGZ,2016
-Lao People's Democratic Republic,LAO,2016
+Laos,LAO,2016
 Latvia,LVA,2016
 Lebanon,LBN,2016
 Lesotho,LSO,2016
@@ -207,7 +210,7 @@ San Marino,SMR,2016
 Sao Tome and Principe,STP,2016
 Saudi Arabia,SAU,2016
 Senegal,SEN,2016
-Serbia,SRB,2016
+Republic of Serbia,SRB,2016
 Seychelles,SYC,2016
 Sierra Leone,SLE,2016
 Singapore,SGP,2016
@@ -238,7 +241,7 @@ United Arab Emirates,ARE,2016
 United States Minor Outlying Islands,UMI,2016
 Uzbekistan,UZB,2016
 Vanuatu,VUT,2016
-Viet Nam,VNM,2016
+Vietnam,VNM,2016
 Wallis and Futuna,WLF,2016
 Western Sahara,ESH,2016
 Yemen,YEM,2016
