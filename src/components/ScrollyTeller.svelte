@@ -6,6 +6,7 @@
   import SVOD from "./SVOD.svelte";
   import AVOD from "./AVOD.svelte";
   import Original from "./Original.svelte";
+  import Subscriber from "./Subscriber.svelte";
 
   let index;
 </script>
@@ -23,27 +24,31 @@
   <div class="foreground" slot="foreground">
     <section class="first-session">
       <h1 class="title">The Evolution Story of the Streaming Giant Netflix: Adapting Profit Models in a Rapidly Changing Era</h1>
-      <!-- Include the Timeline component within the first session -->
+      <!-- Include the Timeline component within the 1st session -->
       <Timeline />
     </section>
     <section>
-      <!-- Include the Revenue component within the second section -->
+      <!-- Include the Revenue component within the 2nd section -->
       <Revenue {index} />
     </section>
     <section>
-      <!-- Include the SVOD component within the third section -->
+      <!-- Include the Subscriber component within the 3rd section -->
+      <Subscriber />
+    </section>
+    <section>
+      <!-- Include the SVOD component within the 4th section -->
       <SVOD />
     </section>
     <section>
-      <!-- Include the Map component within the fourth section -->
+      <!-- Include the Map component within the 5th section -->
       <Map />
     </section>
     <section>
-      <!-- Include the Map component within the fifth section -->
+      <!-- Include the Map component within the 6th section -->
       <Original />
     </section>
     <section>
-      <!-- Include the Map component within the sixth section -->
+      <!-- Include the Map component within the 7th section -->
       <AVOD />
     </section>
   </div>

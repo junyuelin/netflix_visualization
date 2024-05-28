@@ -67,7 +67,7 @@
 
         svg.selectAll('.country')
           .attr('fill', d => {
-            return highlightedCountries.has(d.properties.name) ? '#87CEEB' : 'lightgray';
+            return highlightedCountries.has(d.properties.name) ? 'steelblue' : 'lightgray';
           });
       }
 
