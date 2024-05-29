@@ -38,6 +38,11 @@
       d3.json('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson'),
       d3.csv('https://raw.githubusercontent.com/junyuelin/netflix_visualization/main/netflix%20static/expansion/expansion_countries.csv')
     ]).then(([mapData, countryData]) => {
+      const countryYearMap = new Map();
+      countryData.forEach(d => {
+        countryYearMap.set(d.name, d.year);
+      });
+
       svg.append('g')
         .selectAll('path')
         .data(mapData.features)
@@ -46,23 +51,26 @@
         .attr('class', d => 'country ' + d.properties.name)
         .attr('fill', 'lightgray')
         .attr('stroke', 'white')
-        .attr('stroke-width', 0.5) // Default stroke width
+        .attr('stroke-width', 0.5)
         .on('mouseover', (event, d) => {
-          tooltip.style('visibility', 'visible').text(d.properties.name);
-          d3.select(event.currentTarget).attr('class', 'country highlight'); // Add highlight class on hover
+          const countryName = d.properties.name;
+          const year = countryYearMap.get(countryName);
+          const tooltipText = year ? `Country Name: ${countryName}<br>Availbility Year: ${year}` : `${countryName}<br>Year: N/A`;
+          tooltip.style('visibility', 'visible').html(tooltipText);
+          d3.select(event.currentTarget).attr('class', 'country highlight');
         })
         .on('mousemove', event => {
           tooltip.style('top', (event.pageY - 10) + 'px').style('left', (event.pageX + 10) + 'px');
         })
         .on('mouseout', (event, d) => {
           tooltip.style('visibility', 'hidden');
-          d3.select(event.currentTarget).attr('class', 'country'); // Remove highlight class on mouse out
+          d3.select(event.currentTarget).attr('class', 'country');
         });
 
       function updateMap(year) {
         const filteredData = countryData.filter(d => +d.year <= +year);
 
-        let highlightedCountries = new Set(); // Clear the highlighted countries for each update
+        let highlightedCountries = new Set();
 
         filteredData.forEach(d => {
           highlightedCountries.add(d.name);
@@ -88,8 +96,8 @@
 <div class="container">
   <div class="map-container"></div>
   <div class="slider-container">
-    <input type="range" min="1997" max="2016" step="1" value="1997" id="year-slider"> <!-- Set initial value to 1997 -->
-    <span id="year-value">1997</span> <!-- Set initial displayed year to 1997 -->
+    <input type="range" min="1997" max="2016" step="1" value="1997" id="year-slider">
+    <span id="year-value">1997</span>
   </div>
   <div class="text-container">
     <p>This map shows the expansion of Netflix across different countries over the years. Use the slider to see the progression by year.</p>
@@ -98,7 +106,7 @@
 
 <style>
   .container {
-    margin-top: -100px; /* Adjust as needed */
+    margin-top: -100px;
   }
   .map-container {
     width: 100%;
@@ -116,7 +124,7 @@
     color: black;
   }
   :global(.highlight) {
-    stroke-width: 1.3; /* Highlighted stroke width */
-    stroke: black; /* Highlighted stroke color */
+    stroke-width: 1.3;
+    stroke: black;
   }
 </style>

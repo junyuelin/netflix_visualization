@@ -397,7 +397,7 @@
   }
 
   :global(.dot-group circle) {
-    fill: steelblue;
+    fill: orange;
     stroke: white;
     stroke-width: 2;
   }
