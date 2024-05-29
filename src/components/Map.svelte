@@ -46,14 +46,17 @@
         .attr('class', d => 'country ' + d.properties.name)
         .attr('fill', 'lightgray')
         .attr('stroke', 'white')
+        .attr('stroke-width', 0.5) // Default stroke width
         .on('mouseover', (event, d) => {
           tooltip.style('visibility', 'visible').text(d.properties.name);
+          d3.select(event.currentTarget).attr('class', 'country highlight'); // Add highlight class on hover
         })
         .on('mousemove', event => {
           tooltip.style('top', (event.pageY - 10) + 'px').style('left', (event.pageX + 10) + 'px');
         })
-        .on('mouseout', () => {
+        .on('mouseout', (event, d) => {
           tooltip.style('visibility', 'hidden');
+          d3.select(event.currentTarget).attr('class', 'country'); // Remove highlight class on mouse out
         });
 
       function updateMap(year) {
@@ -85,8 +88,8 @@
 <div class="container">
   <div class="map-container"></div>
   <div class="slider-container">
-    <input type="range" min="1997" max="2016" step="1" value="2010" id="year-slider">
-    <span id="year-value">2011</span>
+    <input type="range" min="1997" max="2016" step="1" value="1997" id="year-slider"> <!-- Set initial value to 1997 -->
+    <span id="year-value">1997</span> <!-- Set initial displayed year to 1997 -->
   </div>
   <div class="text-container">
     <p>This map shows the expansion of Netflix across different countries over the years. Use the slider to see the progression by year.</p>
@@ -110,6 +113,10 @@
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
-    color: black
+    color: black;
+  }
+  :global(.highlight) {
+    stroke-width: 1.3; /* Highlighted stroke width */
+    stroke: black; /* Highlighted stroke color */
   }
 </style>
