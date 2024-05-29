@@ -33,7 +33,7 @@
     </section>
     <section>
       <!-- Include the Subscriber component within the 3rd section -->
-      <Subscriber />
+      <Subscriber {index} />
     </section>
     <section>
       <!-- Include the SVOD component within the 4th section -->

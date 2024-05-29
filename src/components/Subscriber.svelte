@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
+  export let index;
 
   let data;
 
@@ -33,14 +34,32 @@
       .nice()
       .range([height, 0]);
 
+    const tooltip = d3.select('#tooltip');
+
     svg.append('g')
       .selectAll('.bar')
       .data(data)
       .enter().append('rect')
       .attr('class', 'bar')
       .attr('x', d => x(d.quarter))
-      .attr('y', d => y(+d.subscriber))
+      .attr('y', height) // Start the bars at the bottom of the chart
       .attr('width', x.bandwidth())
+      .attr('height', 0) // Start with zero height
+      .on('mouseover', (event, d) => {
+        tooltip.style('visibility', 'visible')
+          .text(`Quarter: ${d.quarter}\nSubscribers: ${d.subscriber} million`);
+      })
+      .on('mousemove', event => {
+        tooltip.style('top', (event.pageY - 10) + 'px')
+          .style('left', (event.pageX + 10) + 'px');
+      })
+      .on('mouseout', () => {
+        tooltip.style('visibility', 'hidden');
+      })
+      .transition()
+      .delay((d, i) => i * 200) // Delay each bar
+      .duration(200) // Animation duration
+      .attr('y', d => y(+d.subscriber))
       .attr('height', d => height - y(+d.subscriber));
 
     svg.append('g')
@@ -72,6 +91,11 @@
   }
 </script>
 
+
+<div id="chart-container"></div>
+<div id="tooltip" class="tooltip" style="position: absolute; visibility: hidden; background: #fff; border: 1px solid #ccc; padding: 5px; border-radius: 5px;"></div>
+
+
 <style>
   :global(.bar) {
     fill: steelblue;
@@ -92,6 +116,14 @@
     height: 600px;
     width: 100%;
   }
+  .tooltip {
+    position: absolute;
+    visibility: hidden;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+  }
 </style>
 
-<div id="chart-container"></div>
+
