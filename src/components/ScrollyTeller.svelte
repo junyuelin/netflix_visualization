@@ -23,7 +23,9 @@
 
   <div class="foreground" slot="foreground">
     <section class="first-session">
-      <h1 class="title">The Evolution Story of the Streaming Giant Netflix: Adapting Profit Models in a Rapidly Changing Era</h1>
+      <h1 class="title">The Evolution Story of the Streaming Giant Netflix: Adapting Profit Models in a Rapidly Changing Era</h1> 
+    </section>
+    <section>
       <!-- Include the Timeline component within the 1st session -->
       <Timeline />
     </section>
