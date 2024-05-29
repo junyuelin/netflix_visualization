@@ -48,8 +48,8 @@
   // Function to draw the chart
   function drawChart(container) {
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
-    const width = 600 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const width = 400 - margin.left - margin.right;
+    const height = 300 - margin.top - margin.bottom;
 
     // Clear previous content
     d3.select(container).selectAll('*').remove();
@@ -192,8 +192,8 @@
 
   function drawGrowthRateChart(container) {
       const margin = { top: 20, right: 30, bottom: 30, left: 40 };
-      const width = 600 - margin.left - margin.right;
-      const height = 400 - margin.top - margin.bottom;
+      const width = 400 - margin.left - margin.right;
+      const height = 300 - margin.top - margin.bottom;
 
       // Clear previous content
       d3.select(container).selectAll('*').remove();
@@ -342,7 +342,6 @@
 </script>
 
 <div class="content" class:visible={index === 1 || index === 2}>
-<button id="hideButton">Subscriber Charts</button>
   <svg class="replay-button" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" bind:this={replayButton} on:click={replayChart}>
     <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="2"/>
     <path d="M18 12L24 20L18 28V12Z" fill="black"/>
