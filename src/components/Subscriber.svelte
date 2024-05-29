@@ -1,12 +1,15 @@
 <script>
   import { onMount } from 'svelte';
+  import { rawData } from "../dataset.js"
   import * as d3 from 'd3';
   export let index;
 
   let data;
 
+  console.log(rawData)
+
   onMount(async () => {
-    const rawData = await d3.csv('https://raw.githubusercontent.com/junyuelin/netflix_visualization/main/netflix%20static/subscriber%20count/netflix-subscribers-count-worldwide-2013-2024.csv');
+    // const rawData = await d3.csv('https://raw.githubusercontent.com/junyuelin/netflix_visualization/main/netflix%20static/subscriber%20count/netflix-subscribers-count-worldwide-2013-2024.csv');
     // Filter only Q2 data
     data = rawData.filter(d => d.quarter.startsWith('Q2'));
     drawChart();
@@ -14,8 +17,8 @@
 
   function drawChart() {
     const margin = { top: 20, right: 30, bottom: 40, left: 40 };
-    const width = 960 - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
+    const width = 460 - margin.left - margin.right;
+    const height = 300 - margin.top - margin.bottom;
 
     const svg = d3.select('#chart-container')
       .append('svg')
