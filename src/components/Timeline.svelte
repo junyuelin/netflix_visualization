@@ -7,7 +7,11 @@
     let images = [
         { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p1-1997.png?raw=true', year: '1997' , text:'text1'},
         { src: 'https://github.com/junyuelin/netflix_visualization/blob/613007d90b5521816b79dc0bbe1cf959fc5d81e8/netflix%20static/timeline%20images/p2-1999.png?raw=true', year: '1999', text: 'text2' },
-        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p1-1997.png?raw=true', year: '3', text: 'text3'},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p3-2007.png?raw=true', year: '2007', text: 'text3'},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p4-2009.png?raw=true', year: '2009', text: 'text3'},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p5-2010.png?raw=true', year: '2010', text: 'text3'},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p6-ads.png?raw=true', year: '2022', text: 'text3'},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p7-2023.png?raw=true', year: '2023', text: 'text3'},
         // Add more images as needed
     ];
 
