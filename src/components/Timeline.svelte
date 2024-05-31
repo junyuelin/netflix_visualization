@@ -4,14 +4,22 @@
 
 
     let currentIndex = 0;
+    let text1 = 'Birth Of Netflix';
+    let text2 = 'Subscription Concept Debut';
+    let text3 = 'Netflix\'s Streaming Service Announced';
+    let text4 = 'Netflix Originals was launched';
+    let text5 = 'Netflix started its global expansion-Canada as its first destination';
+    let text6 = 'Netflix\'s Introduction of ad-supported tier';
+    let text7 = 'Wind-down of DVD';
+
     let images = [
-        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p1-1997.png?raw=true', year: '1997' , text:'text1'},
-        { src: 'https://github.com/junyuelin/netflix_visualization/blob/613007d90b5521816b79dc0bbe1cf959fc5d81e8/netflix%20static/timeline%20images/p2-1999.png?raw=true', year: '1999', text: 'text2' },
-        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p3-2007.png?raw=true', year: '2007', text: 'text3'},
-        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p4-2009.png?raw=true', year: '2009', text: 'text3'},
-        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p5-2010.png?raw=true', year: '2010', text: 'text3'},
-        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p6-ads.png?raw=true', year: '2022', text: 'text3'},
-        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p7-2023.png?raw=true', year: '2023', text: 'text3'},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/1dd35c4ece521947ce1461f2aab35c2725688005/netflix%20static/timeline%20images/p1-1997.png?raw=true', year: '1997' , text: text1},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/4dfffdc5fff54fe5096c287f2a5129364ac86c96/netflix%20static/timeline%20images/p2-1999.png?raw=true', year: '1999', text: text2 },
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/4dfffdc5fff54fe5096c287f2a5129364ac86c96/netflix%20static/timeline%20images/p3-2007.png?raw=true', year: '2007', text: text3},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/4dfffdc5fff54fe5096c287f2a5129364ac86c96/netflix%20static/timeline%20images/p4-2009.png?raw=true', year: '2009', text: text4},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/4dfffdc5fff54fe5096c287f2a5129364ac86c96/netflix%20static/timeline%20images/p5-2010.jpg?raw=true', year: '2010', text: text5},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/4dfffdc5fff54fe5096c287f2a5129364ac86c96/netflix%20static/timeline%20images/p6-ads.jpg?raw=true', year: '2022', text: text6},
+        { src: 'https://github.com/junyuelin/netflix_visualization/blob/4dfffdc5fff54fe5096c287f2a5129364ac86c96/netflix%20static/timeline%20images/p7-2023.png?raw=true', year: '2023', text: text7},
         // Add more images as needed
     ];
 
@@ -25,7 +33,7 @@
 
 
 </script>
-
+<h1> Netflix's Major Events Timeline</h1>
 <div class="carousel-container">
     <button class="nav-arrow" on:click={showPrev}>⬅️</button>
     <div class="carousel">
@@ -49,7 +57,9 @@
             </div>
 
             <!-- Text -->
-            <div class="text">{image.text}</div>
+            <div class="text">
+              <a href={image.link}>{image.text}</a>
+            </div>
 
         </div>
         {/each}
@@ -59,6 +69,12 @@
   </div>
 
 <style>
+
+    h1 {
+      margin-top: 40px;
+      margin-bottom: 40px; /* Add more space between the heading and the timeline */
+    }
+
     .carousel-container {
       display: flex;
       align-items: center;
@@ -149,6 +165,7 @@
 
     .text {
     margin-top: 10px;
-    font-size: 1em;
+    font-size: 1.3em;
+    font-weight: bold; 
     }
   </style>

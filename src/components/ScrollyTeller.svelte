@@ -29,7 +29,7 @@
       <!-- Include the Timeline component within the 1st session -->
       <Timeline />
     </section>
-    <section>
+    <section id='revenue'>
       <!-- Include the Revenue component within the 2nd section -->
       <Revenue {index} />
     </section>
