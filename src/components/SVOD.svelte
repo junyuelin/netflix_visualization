@@ -1,3 +1,4 @@
+
 <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
@@ -36,7 +37,7 @@
   
         const color = d3.scaleOrdinal()
             .domain(pieData.map(d => d.label))
-            .range(['#1f77b4', '#ff7f0e']);
+            .range(['#EC6B56', '#47B39C']);
   
         const pie = d3.pie()
             .value(d => d.value);
@@ -166,7 +167,6 @@
       stroke-width: 1px;
       fill: none;
     }
-
     .tooltip {
     position: absolute;
     text-align: center;
