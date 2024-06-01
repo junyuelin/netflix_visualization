@@ -1,4 +1,3 @@
-
 <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
@@ -33,7 +32,7 @@
         ];
   
         const width = 600, height = 600;  // Increased size
-        const radius =200;
+        const radius = 200;
   
         const color = d3.scaleOrdinal()
             .domain(pieData.map(d => d.label))
@@ -72,6 +71,12 @@
             .attr("d", arc)
             .attr("fill", d => color(d.data.label))  // Corrected line
             .on("mouseover", function(event, d) {
+                const [x, y] = arc.centroid(d);
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr("transform", `translate(${x * 0.1}, ${y * 0.1})`);
+                
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
@@ -83,7 +88,12 @@
                 tooltip.style("left", (event.pageX + 5) + "px")
                     .style("top", (event.pageY - 28) + "px");
             })
-            .on("mouseout", function(d) {
+            .on("mouseout", function(event, d) {
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr("transform", `translate(0, 0)`);
+                
                 tooltip.transition()
                     .duration(500)
                     .style("opacity", 0);
@@ -118,19 +128,19 @@
         selectedYear = +event.target.value;
         updateChart(selectedYear);
     }
-  </script>
+</script>
   
-  <h1>Netflix's DVD Revenue vs Streaming Revenue over time</h1>
+<h1>Netflix's DVD Revenue vs Streaming Revenue over time</h1>
   
-  <svg id="pie-chart"></svg> 
+<svg id="pie-chart"></svg> 
   
-  <div class="slider-container">
+<div class="slider-container">
     <div class="year-display">{selectedYear}</div>
     <input type="range" min="2002" max="2023" value={selectedYear} on:input={onYearChange} />
     <span>{selectedYear}</span>
-  </div>
+</div>
   
-  <style>
+<style>
     h1 {
       margin-top: 40px;
       margin-bottom: 0px; /* Add more space between the heading and the timeline */
@@ -167,16 +177,16 @@
       stroke-width: 1px;
       fill: none;
     }
-    .tooltip {
-    position: absolute;
-    text-align: center;
-    width: auto;
-    height: auto;
-    padding: 8px;
-    background: lightsteelblue;
-    border: 0px;
-    border-radius: 8px;
-    pointer-events: none;
-}
-  </style>
   
+    .tooltip {
+        position: absolute;
+        text-align: center;
+        width: auto;
+        height: auto;
+        padding: 8px;
+        background: lightsteelblue;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+    }
+</style>
