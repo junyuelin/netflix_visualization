@@ -130,7 +130,8 @@
         },
         data: { month: 'Nov 2022' },
         dy: -30,
-        dx: -50
+        dx: -50,
+        color: ["#000"]
       },
       {
         note: {
@@ -142,7 +143,8 @@
         },
         data: { month: 'Aug 2023' },
         dy: -20, // change text position
-        dx: -60
+        dx: -60,
+        color: ["#000"]
       }
     ];
 
@@ -182,7 +184,7 @@
     margin: auto;
     position: relative;
     top: 35px; /* change chart position */
-    z-index: 1;
+    /* z-index: 1;*/
   }
 
   #stacked-bar-chart {
@@ -217,18 +219,5 @@
 
   .legend text {
     cursor: pointer;
-  }
-
-  .annotation-group {
-    font-family: sans-serif;
-    font-size: 1.2em;
-  }
-
-  .annotation-note-title {
-    font-weight: bold;
-  }
-
-  .annotation-note-label {
-    fill: #555;
   }
 </style>

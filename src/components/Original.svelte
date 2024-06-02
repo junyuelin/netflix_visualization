@@ -1,8 +1,24 @@
 <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
+    import PopupQuestion from './PopupQuestion.svelte';
 
     let data = [];
+    let showPopup = false;
+    let movies = [];
+
+    const originalContent = [
+        "Stranger Things", "The Witcher", "Bridgerton", "Money Heist (La Casa de Papel)",
+        "Outer Banks", "Sex Education", "The Umbrella Academy", "To All the Boys I've Loved Before (movie series)"
+    ];
+
+    const licensedContent = [
+        "Friends", "The Office (US)", "Gossip Girl", "Breaking Bad",
+        "Avatar: The Last Airbender", "Gilmore Girls", "The Vampire Diaries", "The Walking Dead"
+    ];
+
+    // Mix original and licensed content
+    movies = originalContent.flatMap((orig, i) => [orig, licensedContent[i]]);
 
     // URL of the CSV file
     const originUrl = 'https://raw.githubusercontent.com/junyuelin/netflix_visualization/main/netflix%20static/content%20spending/content-assets-cleaned.csv';
@@ -10,6 +26,31 @@
     onMount(async () => {
         await fetchData();
         drawChart();
+
+        // Always allow the popup to show on refresh
+        sessionStorage.removeItem('popupShown');
+
+        const target = document.getElementById('popup-target');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !showPopup && !sessionStorage.getItem('popupSubmitted')) {
+                    showPopup = true;
+                    sessionStorage.setItem('popupShown', 'true'); // Mark as shown for this session
+                }
+            });
+        }, {
+            threshold: 1.0
+        });
+
+        if (target) {
+            observer.observe(target);
+        }
+
+        return () => {
+            if (target) {
+                observer.unobserve(target);
+            }
+        };
     });
 
     async function fetchData() {
@@ -160,6 +201,15 @@
         .on("mouseover", (event, d) => showTooltip(event, d, 'Total'))
         .on("mouseout", hideTooltip);
     }
+
+    function closePopup() {
+        showPopup = false;
+    }
+
+    function handleSubmit() {
+        showPopup = false;
+        sessionStorage.setItem('popupSubmitted', 'true'); // Mark as submitted for this session
+    }
 </script>
 
 <style>
@@ -222,6 +272,11 @@
         font-family: Arial, sans-serif;
         line-height: 1.5;
     }
+
+    .popup-target {
+        border: 1px solid red;
+        height: 20px; /* Adjust as needed */
+    }
 </style>
 
 <!-- Container to wrap the chart and legend -->
@@ -252,4 +307,9 @@
     <div class="chart-description">
         This line chart illustrates Netflix's content asset distribution from 2016 to 2023, highlighting a significant increase in Produced Content Assets, which likely represent original content. This consistent growth, in contrast to the stable trend of Licensed Content Assets, emphasizes Netflix's strategic shift towards prioritizing original content. Netflix's focus on original content as a crucial component of its growth and competitive strategy in the streaming industry. By investing in original content, Netflix not only differentiates itself from competitors but also enhances its content library, attracting and retaining subscribers with unique offerings.
     </div>
+
+    <!-- This is the target element that we want to observe -->
+    <div id="popup-target" class="popup-target">End of Section</div>
 </div>
+
+<PopupQuestion movies={movies} isVisible={showPopup} on:close={closePopup} on:submit={handleSubmit} />
