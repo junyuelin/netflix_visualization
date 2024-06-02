@@ -116,32 +116,38 @@
 <style>
   .container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
-  }
-  .title {
-    text-align: center;
-    font-size: 24px; /* Adjust font size as needed */
-    font-weight: bold;
   }
   .map-container {
     width: 70%;
     height: 600px;
-    margin-left: -150px;
   }
   .text-container {
-    text-align: left;
     width: 25%;
-    padding: 5px;
+    padding: 2px;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-top: 300px; /* Adjust this value to move the text down */
+    margin-left: -50px;
+  }
+  .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .description {
+    text-align: left;
   }
   .slider-container {
-    margin: 20px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  #year-slider {
+    margin-right: 10px;
   }
   :global(.tooltip) {
     position: absolute;

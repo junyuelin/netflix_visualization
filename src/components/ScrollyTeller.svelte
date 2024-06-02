@@ -43,7 +43,10 @@
 
   <div class="foreground" slot="foreground">
     <section id="first-session" class="first-session">
-      <h1 class="title">The Evolution Story of the Streaming Giant Netflix: Adapting Profit Models in a Rapidly Changing Era</h1> 
+      <h1 class="title">
+        The Evolution Story of the Streaming Giant Netflix: <br> 
+        Adapting Profit Models in a Rapidly Changing Era
+      </h1> 
     </section>
     <section id="timeline">
       <!-- Include the Timeline component within the 1st session -->
@@ -78,37 +81,61 @@
 
 <style>
   .background {
-    width: 100%;
-    height: 100vh;
+    width: 100%; /* Set the same width as .foreground */
+    margin: 0 auto; /* Center the element */
+    height: 100vh; /* Full viewport height */
     position: relative;
   }
 
   .foreground {
-    width: 80%;
-    margin: 0 auto;
+    width: 100%; /* Set the same width as .background */
+    margin: 0 auto; /* Center the element */
     height: auto;
     position: relative;
   }
 
   .first-session {
+    position: relative; /* Ensure the overlay is positioned correctly */
+    height: 100vh; /* Ensure the first session covers the full viewport height */
+    display: flex;
+    align-items: center; /* Center align the title vertically */
+    justify-content: center; /* Center align the title horizontally */
+  }
+
+  .first-session::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-image: url('https://github.com/junyuelin/netflix_visualization/blob/main/netflix%20static/Netflix_background.jpeg?raw=true');
     background-size: cover;
     background-position: center;
+    opacity: 0.5; /* Adjust the opacity as needed */
+    z-index: -1; /* Ensure the overlay is behind the content */
   }
 
   .title {
     color: white;
     text-align: center;
-    font-size: 25px;
-    margin-top: 50px;
+    font-size: 40px; /* Increased the font size */
+    margin-top: -50vh; /* Adjusted margin-top to make the title more visible */
+    line-height: 1.2; /* Adjust line height for better spacing */
+    position: relative; /* Ensure the title is positioned correctly */
+    z-index: 1; /* Ensure the title is above the overlay */
+    background: rgba(0, 0, 0, 0.6); /* Background color with transparency */
+    padding: 20px; /* Padding around the text */
+    border-radius: 10px; /* Rounded corners */
   }
 
   section {
     height: 80vh;
     text-align: center;
-    width: 1180px;
+    width: 100%; /* Adjust the width to match the background and foreground */
     color: black;
     padding: 1em;
+    margin: 0 auto; /* Center the section */
   }
 
   .content-menu {

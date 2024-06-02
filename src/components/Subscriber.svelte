@@ -245,10 +245,11 @@
   }
   .text-container {
     text-align: left;
-    width: 1100px; /* Adjust the width as needed */
+    width: 73%; /* Adjust the width as needed */
     height: auto;
     background-color: #f0f0f0; /* Adjust the background color as needed */
     padding: 5px; /* Adjust the padding as needed */
+    margin: 0 auto; /* Center the container */
   }
   svg {
     font: 10px sans-serif;
