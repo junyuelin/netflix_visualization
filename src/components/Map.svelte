@@ -55,7 +55,7 @@
         .on('mouseover', (event, d) => {
           const countryName = d.properties.name;
           const year = countryYearMap.get(countryName);
-          const tooltipText = year ? `Country Name: ${countryName}<br>Availbility Year: ${year}` : `${countryName}<br>Year: N/A`;
+          const tooltipText = year ? `Country Name: ${countryName}<br>Available Year: ${year}` : `${countryName}<br>Available Year: N/A`;
           tooltip.style('visibility', 'visible').html(tooltipText);
           d3.select(event.currentTarget).attr('class', 'country highlight');
         })
@@ -95,22 +95,50 @@
 
 <div class="container">
   <div class="map-container"></div>
-  <div class="slider-container">
-    <input type="range" min="1997" max="2016" step="1" value="1997" id="year-slider">
-    <span id="year-value">1997</span>
-  </div>
   <div class="text-container">
-    <p>This map shows the expansion of Netflix across different countries over the years. Use the slider to see the progression by year.</p>
+    <div class="title">Expansion</div>
+    <div class="description">
+      <ul>
+        <li>2010: Expansion to Canada.</li>
+        <li>2011: Launch of streaming services in Latin America and the Caribbean.</li>
+        <li>2012: Expansion to the UK and Ireland.</li>
+        <li>2013: Expansion to Nordic countries.</li>
+        <li>2016: Netflix becomes available globally.</li>
+      </ul>
+    </div>
   </div>
+</div>
+<div class="slider-container">
+  <input type="range" min="1997" max="2016" step="1" value="1997" id="year-slider">
+  <span id="year-value">1997</span>
 </div>
 
 <style>
   .container {
-    margin-top: -100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+  .title {
+    text-align: center;
+    font-size: 24px; /* Adjust font size as needed */
+    font-weight: bold;
   }
   .map-container {
-    width: 100%;
+    width: 70%;
     height: 600px;
+    margin-left: -150px;
+  }
+  .text-container {
+    text-align: left;
+    width: 25%;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 300px; /* Adjust this value to move the text down */
   }
   .slider-container {
     margin: 20px;
