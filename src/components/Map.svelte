@@ -134,7 +134,7 @@
   .text-container {
     text-align: left;
     width: 25%;
-    padding: 8px;
+    padding: 5px;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 5px;

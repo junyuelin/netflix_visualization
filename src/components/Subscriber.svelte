@@ -2,6 +2,8 @@
   import { onMount } from 'svelte';
   import { rawData } from "../dataset.js";
   import * as d3 from 'd3';
+  import { annotation, annotationCalloutElbow } from 'd3-svg-annotation';
+
   export let index;
 
   let data;
@@ -147,7 +149,7 @@
       .attr('height', 0) // Start with zero height
       .on('mouseover', (event, d) => {
         tooltip.style('visibility', 'visible')
-          .html(`Quarter: ${d.quarter}<br>Difference: ${d.difference} million`);
+          .html(`Quarter: ${d.quarter}<br>Difference from previous quarter: ${d.difference} million`);
       })
       .on('mousemove', event => {
         const containerRect = container.node().getBoundingClientRect();
@@ -189,10 +191,46 @@
       .attr('y', height + margin.bottom + 10)
       .style('text-anchor', 'middle')
       .text('Quarter');
+      
+      // Add annotations
+    const annotations = [
+      {
+        note: {
+          title: "Q1&Q2 2022",
+          label: "decline in subsrcibers",
+          wrap: 300,
+          bgPadding: 10,
+          padding: 15,
+        },
+        data: { quarter: 'Q2 2022' },
+        dy: -180, // Adjust the text position as needed
+        dx: -160 // Adjust the text position as needed
+      },
+      // Add more annotations if needed
+    ];
+
+    const makeAnnotations = annotation()
+      .editMode(false)
+      .notePadding(15)
+      .type(annotationCalloutElbow)
+      .accessors({
+        x: d => x(d.quarter) + x.bandwidth() / 2,
+        y: d => d.difference >= 0 ? y(d.difference) : y(0)
+      })
+      .annotations(annotations);
+
+    svg.append("g")
+      .attr("class", "annotation-group")
+      .call(makeAnnotations);
   }
 </script>
 
+<h2 class="chart-title">Number of Netflix paid subscribers worldwide</h2>
 <div id="chart-container" style="position: relative;"></div>
+<div class="text-container">
+  <p>-Netflix had around 269.6 million paid subscribers worldwide as of the first quarter of 2024.</p>
+  <p>-Due to losses in its subscriber base recorded in the first half of 2022, Netflix introduced an ad-supported tier in November 2022 to offset customer and revenue declines.</p>
+</div>
 <div id="diff-chart-container" style="position: relative; margin-top: 50px;"></div>
 
 <style>
@@ -205,10 +243,18 @@
   :global(.axis-label) {
     font: 12px sans-serif;
   }
+  .text-container {
+    text-align: left;
+    width: 1100px; /* Adjust the width as needed */
+    height: auto;
+    background-color: #f0f0f0; /* Adjust the background color as needed */
+    padding: 5px; /* Adjust the padding as needed */
+  }
   svg {
     font: 10px sans-serif;
   }
   #chart-container, #diff-chart-container {
+    margin-top: -70px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -222,5 +268,12 @@
     border: 1px solid #ccc;
     padding: 5px;
     border-radius: 5px;
+  }
+  :global(.annotation-note-title) {
+    font-weight: bold;
+    fill: black;
+  }
+  :global(.annotation-note-label) {
+    fill: black;
   }
 </style>

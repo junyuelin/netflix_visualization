@@ -354,7 +354,6 @@
   <div class="text-container" bind:this={textContainer}>
     <h2>Netflix Annual Revenue</h2>
     <p>
-      This line chart represents Netflix's annual revenue from 2002 to 2023.
       As you can see, Netflix's revenue has been steadily increasing over the years,
       reflecting its growth and expansion in the streaming industry.
     </p>
