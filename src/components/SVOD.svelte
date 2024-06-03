@@ -32,7 +32,7 @@
         ];
   
         const width = 600, height = 600;  // Increased size
-        const radius = 200;
+        const radius = 160;
   
         const color = d3.scaleOrdinal()
             .domain(pieData.map(d => d.label))
@@ -142,28 +142,43 @@
     <input type="range" min="2002" max="2023" value={selectedYear} on:input={onYearChange} />
     <span>{selectedYear}</span>
 </div>
-
 <div class="description">
     <ul>
-      <li>1997: Launch of Netflix As a DVD Rental Company</li>
-      <li>1999: Introduction of DVD subscription service </li>
-      <li>2007: Introduction of Netflix Streaming service</li>
-      <li>2010: Netflix offering Streaming Services bundled with DVD </li>
-      <li>2011: Netflix'Plan to separate its DVD and streaming services, which was abandoned due to customer backlash</li>
-      <li>After 2011: Continuous Decline of DVD Revenue, and Growing Popularity of Streaming Services.</li>
+        <li><span>1997:</span> Launch of Netflix As a DVD Rental Company</li>
+        <li><span>1999:</span> Introduction of DVD subscription service</li>
+        <li><span>2007:</span> Introduction of Netflix Streaming service</li>
+        <li><span>2010:</span> Netflix offering Streaming Services bundled with DVD</li>
+        <li><span>2011:</span> Netflix' Plan to separate its DVD and streaming services, which was abandoned due to customer backlash</li>
+        <li><span>After 2011:</span> Continuous Decline of DVD Revenue, and Growing Popularity of Streaming Services.</li>
     </ul>
-  </div>
-  
-<style>
-    h1 {
-      margin-top: 40px;
-      margin-bottom: 100px; /* Add more space between the heading and the timeline */
-    }
+</div>
 
-    h2 {
-        font-size: 20px; /* Adjust this value to make the h2 font size smaller than h1 */
-    }
-  
+<style>
+  .description {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 20px; /* Add padding for better spacing */
+    margin-top: 20px; /* Add margin to position it below the pie chart */
+    text-align: left; /* Align text to the left */
+    border-radius: 8px; /* Add border radius for rounded corners */
+    max-width: 600px; /* Limit the width for better readability */
+    margin: 20px auto; /* Center the description box */
+  }
+
+  .description ul {
+    list-style-type: disc; /* Use bullet points */
+    padding-left: 20px; /* Add left padding to align bullet points */
+  }
+
+  .description li {
+    margin-bottom: 10px; /* Add spacing between list items */
+  }
+
+  .description li span {
+    font-weight: bold; /* Make the year bold */
+    margin-right: 10px; /* Add space between the year and the text */
+  }
+
     #pie-chart {
       display: block;
       margin: auto; /* Center the pie chart horizontally */
@@ -174,7 +189,7 @@
   
     .slider-container {
       text-align: center;
-      margin: -60px 0;
+      margin: -18px 0;
       position: relative;
       z-index: 2; /* Ensure the slider is above the pie chart */
     }
