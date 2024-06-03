@@ -130,7 +130,7 @@
   }
 
   section {
-    height: 80vh;
+    height: 100vh;
     text-align: center;
     width: 100%; /* Adjust the width to match the background and foreground */
     color: black;
