@@ -41,7 +41,7 @@
 
   function closePopup() {
     showPopup = false;
-    sessionStorage.setItem('popupSubmitted', 'true'); // Mark as submitted for this session
+    // sessionStorage.setItem('popupSubmitted', 'true'); // Mark as submitted for this session
   }
 
   function handleSubmit() {

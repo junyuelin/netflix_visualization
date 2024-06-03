@@ -67,6 +67,7 @@
         </div>
         <button on:click={submitSelection} disabled={selectedMovies.length !== 5}>Submit</button>
       {/if}
+      <button class="close-button" on:click={close}>X</button>
     </div>
   </div>
 {/if}
