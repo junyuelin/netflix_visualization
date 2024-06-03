@@ -138,7 +138,6 @@
 <svg id="pie-chart"></svg> 
   
 <div class="slider-container">
-    <div class="year-display">{selectedYear}</div>
     <input type="range" min="2002" max="2023" value={selectedYear} on:input={onYearChange} />
     <span>{selectedYear}</span>
 </div>
@@ -189,6 +188,7 @@
   
     .slider-container {
       text-align: center;
+      margin-top: -100px;
       margin: -18px 0;
       position: relative;
       z-index: 2; /* Ensure the slider is above the pie chart */
