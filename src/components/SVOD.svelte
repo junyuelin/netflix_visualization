@@ -70,6 +70,8 @@
         arcs.append("path")
             .attr("d", arc)
             .attr("fill", d => color(d.data.label))  // Corrected line
+            .attr("stroke", "black")  // Add border color
+            .attr("stroke-width", "1.5px")  // Add border width
             .on("mouseover", function(event, d) {
                 const [x, y] = arc.centroid(d);
                 d3.select(this)
@@ -130,7 +132,8 @@
     }
 </script>
   
-<h1>Netflix's DVD Revenue vs Streaming Revenue over time</h1>
+<h1>From DVD-by-Mail Era to The Windown of DVD</h1>
+    <h2>Netflix's DVD Revenue vs Streaming Revenue over time</h2>
   
 <svg id="pie-chart"></svg> 
   
@@ -139,11 +142,26 @@
     <input type="range" min="2002" max="2023" value={selectedYear} on:input={onYearChange} />
     <span>{selectedYear}</span>
 </div>
+
+<div class="description">
+    <ul>
+      <li>1997: Launch of Netflix As a DVD Rental Company</li>
+      <li>1999: Introduction of DVD subscription service </li>
+      <li>2007: Introduction of Netflix Streaming service</li>
+      <li>2010: Netflix offering Streaming Services bundled with DVD </li>
+      <li>2011: Netflix'Plan to separate its DVD and streaming services, which was abandoned due to customer backlash</li>
+      <li>After 2011: Continuous Decline of DVD Revenue, and Growing Popularity of Streaming Services.</li>
+    </ul>
+  </div>
   
 <style>
     h1 {
       margin-top: 40px;
-      margin-bottom: 0px; /* Add more space between the heading and the timeline */
+      margin-bottom: 100px; /* Add more space between the heading and the timeline */
+    }
+
+    h2 {
+        font-size: 20px; /* Adjust this value to make the h2 font size smaller than h1 */
     }
   
     #pie-chart {
