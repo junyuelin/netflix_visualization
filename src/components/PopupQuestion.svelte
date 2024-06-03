@@ -39,10 +39,10 @@
       `;
     }
 
-    setTimeout(() => {
+    /* setTimeout(() => {
       close();
       dispatch('submit');
-    }, 10000); // Close after 10 seconds
+    }, 10000); // Close after 10 seconds */
   }
 
   import { createEventDispatcher } from 'svelte';
@@ -52,6 +52,7 @@
 {#if isVisible}
   <div class="popup">
     <div class="popup-content">
+      <button class="close-button" on:click={close}>X</button>
       {#if message}
         {@html message}
       {:else}
@@ -85,6 +86,7 @@
     overflow: hidden; /* Ensure no overflow within the popup */
   }
   .popup-content {
+    position: relative;
     background: white;
     padding: 2em;
     border-radius: 8px;
@@ -108,5 +110,14 @@
   button:disabled {
     background: #ccc;
     cursor: not-allowed;
+  }
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
   }
 </style>

@@ -32,7 +32,7 @@
     const series = stack(data);
 
     const width = 1300, height = 600;
-    const margin = { top: 30, right: 250, bottom: 25, left: 405 };
+    const margin = { top: 30, right: 225, bottom: 25, left: 450 };
     const barWidth = width - margin.left - margin.right;
     const barHeight = height - margin.top - margin.bottom;
     
