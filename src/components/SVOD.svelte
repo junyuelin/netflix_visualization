@@ -143,8 +143,6 @@
 </div>
 <div class="description">
     <ul>
-        <li><span>1997:</span> Launch of Netflix As a DVD Rental Company</li>
-        <li><span>1999:</span> Introduction of DVD subscription service</li>
         <li><span>2007:</span> Introduction of Netflix Streaming service</li>
         <li><span>2010:</span> Netflix offering Streaming Services bundled with DVD</li>
         <li><span>2011:</span> Netflix' Plan to separate its DVD and streaming services, which was abandoned due to customer backlash</li>
