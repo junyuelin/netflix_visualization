@@ -47,6 +47,15 @@
         The Evolution Story of the Streaming Giant Netflix: <br> 
         Adapting Profit Models in a Rapidly Changing Era
       </h1> 
+    <div class="bullet-points">
+    <ul>
+      <li>Key Milestones in Netflix's History</li>
+      <li>Overview of Streaming Industry Growth</li>
+      <li>Global Expansion Strategy</li>
+      <li>Original Content strategy</li>
+      <li>Launch of the Ad-Supported Tier</li>
+    </ul>
+  </div>
     </section>
     <section id="timeline">
       <!-- Include the Timeline component within the 1st session -->
@@ -100,6 +109,25 @@
     display: flex;
     align-items: center; /* Center align the title vertically */
     justify-content: center; /* Center align the title horizontally */
+    flex-direction: column; /* Align content in column */
+    text-align: center; /* Center text */
+  }
+  .bullet-points {
+    margin-top: 20px; /* Adjust margin-top as needed */
+    text-align: left; /* Align bullet points to the left */
+  }
+
+  .bullet-points ul {
+    list-style-type: disc; /* Use disc bullets */
+    padding-left: 20px; /* Add left padding to the bullet points */
+    color: white; 
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    margin-top: 20vh;
+  }
+
+  .bullet-points li {
+    margin-bottom: 10px; /* Adjust margin between bullet points */
   }
 
   .first-session::before {
@@ -120,11 +148,10 @@
     color: white;
     text-align: center;
     font-size: 40px; /* Increased the font size */
-    margin-top: -50vh; /* Adjusted margin-top to make the title more visible */
+    margin-top: -15vh; /* Adjusted margin-top to make the title more visible */
     line-height: 1.2; /* Adjust line height for better spacing */
     position: relative; /* Ensure the title is positioned correctly */
     z-index: 1; /* Ensure the title is above the overlay */
-    background: rgba(0, 0, 0, 0.6); /* Background color with transparency */
     padding: 20px; /* Padding around the text */
     border-radius: 10px; /* Rounded corners */
   }
@@ -140,6 +167,7 @@
   #revenue {
     background-color: #e0e0e0;
   }
+
   #svod {
     background-color: #e0e0e0;
   }
