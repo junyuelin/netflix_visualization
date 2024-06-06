@@ -95,22 +95,23 @@
 
 <div class="container">
   <div class="map-container"></div>
-  <div class="text-container">
-    <div class="title">Expansion</div>
-    <div class="description">
-      <ul>
-        <li>2010: Expansion to Canada.</li>
-        <li>2011: Launch of streaming services in Latin America and the Caribbean.</li>
-        <li>2012: Expansion to the UK and Ireland.</li>
-        <li>2013: Expansion to Nordic countries.</li>
-        <li>2016: Netflix becomes available globally.</li>
-      </ul>
-    </div>
-  </div>
 </div>
 <div class="slider-container">
   <input type="range" min="1997" max="2016" step="1" value="1997" id="year-slider">
   <span id="year-value">1997</span>
+</div>
+<div class="text-container">
+  <div class="title">Expansion</div>
+  <div class="description">
+    <ul>
+      <li>2010: Expansion to Canada.</li>
+      <li>2011: Launch of streaming services in Latin America and the Caribbean.</li>
+      <li>2012: Expansion to the UK and Ireland.</li>
+      <li>2013: Expansion to Nordic countries.</li>
+      <li>2016: Netflix becomes available globally.</li>
+    </ul>
+    <p>By expanding globally, Netflix grows its market size and continually increases its subscriber base.</p>
+  </div>
 </div>
 
 <style>
@@ -118,20 +119,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: -100px;
   }
   .map-container {
     width: 70%;
     height: 600px;
+    margin: 0 auto;
+    transform: translateX(-10%);
   }
   .text-container {
-    width: 25%;
-    padding: 2px;
+    display: inline-block;
+    padding: 15px;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-left: -50px;
+    margin: 20px auto;
+    text-align: left;
   }
+
   .title {
     text-align: center;
     font-size: 24px;

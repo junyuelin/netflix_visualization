@@ -342,16 +342,16 @@
 </script>
 
 <div class="content" class:visible={index === 1 || index === 2}>
-  <svg class="replay-button" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" bind:this={replayButton} on:click={replayChart}>
-    <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="2"/>
-    <path d="M18 12L24 20L18 28V12Z" fill="black"/>
-  </svg>
-
   <div class="charts-container">
     <div class="chart-container" bind:this={container1}></div>
-    <div class="chart-container" bind:this={container2}></div>
   </div>
+
   <div class="text-container" bind:this={textContainer}>
+    <svg class="replay-button" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" bind:this={replayButton} on:click={replayChart}>
+      <circle cx="20" cy="20" r="18" fill="white" stroke="black" stroke-width="2"/>
+      <path d="M18 12L24 20L18 28V12Z" fill="black"/>
+    </svg>
+
     <h2>Netflix Annual Revenue</h2>
     <p>
       As you can see, Netflix's revenue has been steadily increasing over the years,
@@ -359,7 +359,12 @@
     </p>
     <!-- Add more descriptive text here as needed -->
   </div>
+
+  <div class="charts-container">
+    <div class="chart-container" bind:this={container2}></div>
+  </div>
 </div>
+
 
 <style>
   .content {

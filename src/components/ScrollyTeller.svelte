@@ -112,7 +112,7 @@
     background-image: url('https://github.com/junyuelin/netflix_visualization/blob/main/netflix%20static/Netflix_background.jpeg?raw=true');
     background-size: cover;
     background-position: center;
-    opacity: 0.5; /* Adjust the opacity as needed */
+    opacity: 0.9; /* Adjust the opacity as needed */
     z-index: -1; /* Ensure the overlay is behind the content */
   }
 
@@ -137,7 +137,15 @@
     padding: 1em;
     margin: 0 auto; /* Center the section */
   }
-
+  #revenue {
+    background-color: #e0e0e0;
+  }
+  #svod {
+    background-color: #e0e0e0;
+  }
+  #original {
+    background-color: #e0e0e0;
+  }
   .content-menu {
     position: fixed;
     top: 0;
