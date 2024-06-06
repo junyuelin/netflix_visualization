@@ -85,10 +85,54 @@
       <!-- Include the AVOD component within the 7th section -->
       <AVOD />
     </section>
+    <section id="takeaway">
+      <!-- Include the Takeaway within the 8th section -->
+      <h2>Takeaway</h2>
+    <p>
+      Netflix's journey from a DVD rental service to a global streaming giant 
+      showcases remarkable adaptability in business models, 
+      responding effectively to the evolving digital landscape. 
+      This evolution underscores the importance of innovation and strategic adaptation 
+      in navigating competitive markets. 
+      Furthermore, global expansion and original content investment expanded its subscriber base worldwide.
+    </p>
+
+    <p>
+      However, the emergence of competing streaming services such as Disney+ and Amazon Prime 
+      has put a strain on Netflix's growth. 
+      To address this, Netflix launched its ad-supported tier in 2022, 
+      transitioning to a hybrid SVOD and AVOD business model.
+    </p>
+
+    <p>
+      Looking ahead, what should Netflix do to maintain its competitive edge in the streaming war?
+    </p>
+
+      
+      
+      <h2>Source</h2>
+      <p>Statista</p>
+      
+      <h2>Source Code</h2>
+      <p><a href="https://github.com/junyuelin/netflix_visualization/tree/main">Github</a></p>
+    </section>
   </div>
 </Scroller>
 
 <style>
+  #takeaway {
+    padding: 20px;
+    background-color: #f0f0f0;
+    margin-top: 20px;
+    border-radius: 8px;
+  }
+  #takeaway p {
+    font-size: 18px;
+    line-height: 1.5;
+    color: black;
+    margin-bottom: 15px;
+    padding: 0 200px;
+  }
   .background {
     width: 100%; /* Set the same width as .foreground */
     margin: 0 auto; /* Center the element */
