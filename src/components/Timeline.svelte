@@ -125,13 +125,13 @@
     margin-top: 0;
     text-align: center;
     font-size: 1.5em;
-    color: #333;
+    color: #000;;
   }
 
   .description p {
     margin: 10px 0;
     font-size: 1.2em;
-    color: #666;
+    color: #000;;
   }
 
   .carousel-container {
