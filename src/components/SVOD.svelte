@@ -140,7 +140,7 @@
     <span>{selectedYear}</span>
 </div>
 <div class="description">
-    <h2>From DVD-by-Mail Era to The Window of DVD</h2>
+    <h2>From DVD-by-Mail Era to The Wind-down of DVD</h2>
     <ul>
         <li><span>2007:</span> Introduction of Netflix streaming service</li>
         <li><span>2010:</span> Netflix offering streaming services bundled with DVD</li>

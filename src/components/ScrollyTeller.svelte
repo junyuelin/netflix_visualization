@@ -89,29 +89,50 @@
       <!-- Include the Takeaway within the 8th section -->
       <h2>Takeaway</h2>
     <p>
-      Netflix's journey from a DVD rental service to a global streaming giant 
-      showcases remarkable adaptability in business models, 
-      responding effectively to the evolving digital landscape. 
-      This evolution underscores the importance of innovation and strategic adaptation 
-      in navigating competitive markets. 
-      Furthermore, global expansion and original content investment expanded its subscriber base worldwide.
+      Netflix began its journey in 1997 as a DVD rental service. 
+      By 2007, recognizing the shift towards digital consumption, Netflix launched its streaming service. 
+      This transition from physical media to digital streaming provided greater convenience and access, 
+      significantly boosting its revenue and audience reach.
     </p>
 
     <p>
-      However, the emergence of competing streaming services such as Disney+ and Amazon Prime 
-      has put a strain on Netflix's growth. 
-      To address this, Netflix launched its ad-supported tier in 2022, 
-      transitioning to a hybrid SVOD and AVOD business model.
+      Starting in 2010, Netflix embarked on an ambitious international expansion. 
+      This expansion into Latin America, Europe, and Asia-Pacific was crucial for increasing its subscriber base. 
+      Despite facing challenges like regulatory hurdles and the need to adapt content to diverse cultural preferences, 
+      this move established Netflix as a global entertainment leader.
     </p>
 
     <p>
-      Looking ahead, what should Netflix do to maintain its competitive edge in the streaming war?
+      A major turning point came in 2012 with the introduction of original content. 
+      By creating its own shows such as "House of Cards" and "Stranger Things," 
+      Netflix differentiated itself from competitors. This strategic shift reduced its reliance on licensed content, 
+      which was both costly and uncertain. Investing in original productions gave Netflix a unique competitive edge, 
+      driving subscriber growth and retention by offering exclusive, high-quality content.
     </p>
 
-      
-      
+    <p>
+    By 2022, Netflix encountered new challenges.
+    The rapid growth from international expansion and original content began to plateau. 
+    Economic pressures, including inflation, and a saturated market with a fixed viewer base necessitated a new strategy. 
+    In response, Netflix introduced an ad-supported tier (AVOD) in 2022. 
+    This model aimed to attract cost-sensitive customers while generating additional revenue through advertisements. 
+    The introduction of the AVOD tier showcased Netflix's ability to adapt its business model to 
+    changing market dynamics and economic conditions.
+     </p> 
+
+    <p> 
+    Netflix's evolution underscores the importance of innovation and strategic adaptation in navigating competitive markets. 
+    </p>
+    <p>
+    Looking ahead, what should Netflix do to maintain its competitive edge in the streaming war?
+    <p>
+
+
+
+    </p>
+
       <h2>Source</h2>
-      <p>Statista</p>
+      <p>Statista, Netflix's 10K report</p>
       
       <h2>Source Code</h2>
       <p><a href="https://github.com/junyuelin/netflix_visualization/tree/main">Github</a></p>
