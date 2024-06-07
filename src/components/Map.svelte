@@ -82,13 +82,14 @@
           });
       }
 
-      updateMap(slider.property('value'));
-
       slider.on('input', function() {
         const year = this.value;
         yearValue.text(year);
         updateMap(year);
       });
+
+      // Initial update
+      updateMap(slider.property('value'));
     });
   }
 </script>
@@ -96,7 +97,7 @@
 <div class="container">
   <div class="map-container"></div>
 </div>
-<div class="slider-container">
+<div class="slider-container_map">
   <input type="range" min="1997" max="2016" step="1" value="1997" id="year-slider">
   <span id="year-value">1997</span>
 </div>
@@ -116,6 +117,7 @@
 
 <style>
   .container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -124,7 +126,6 @@
   .map-container {
     width: 70%;
     height: 600px;
-    margin: 0 auto;
     transform: translateX(-10%);
   }
   .text-container {
@@ -133,7 +134,7 @@
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin: 20px auto;
+    margin: 40px auto 40px;
     text-align: left;
   }
 
@@ -146,10 +147,14 @@
   .description {
     text-align: left;
   }
-  .slider-container {
+  :global(.slider-container_map){
+    position: absolute;
     display: flex;
     justify-content: center;
+    left: 50%;
     margin-top: 20px;
+    z-index: 999;
+    transform: translateX(-45%);
   }
   #year-slider {
     margin-right: 10px;
