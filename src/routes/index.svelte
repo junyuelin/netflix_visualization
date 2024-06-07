@@ -19,13 +19,16 @@
   movies = originalContent.flatMap((orig, i) => [orig, licensedContent[i]]);
 
   onMount(() => {
-    // Always allow the popup to show on refresh
-    sessionStorage.removeItem('popupShown');
+    // Clear the popupShown flag on page load
+    // sessionStorage.removeItem('popupShown');
 
-    window.addEventListener('scroll', handleScroll);
+
+    if (!sessionStorage.getItem('popupSubmitted')) {
+        window.addEventListener('scroll', handleScroll);
+    }
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('scroll', handleScroll);
     };
   });
 
@@ -41,7 +44,7 @@
 
   function closePopup() {
     showPopup = false;
-    // sessionStorage.setItem('popupSubmitted', 'true'); // Mark as submitted for this session
+    sessionStorage.setItem('popupSubmitted', 'true'); // Mark as submitted for this session
   }
 
   function handleSubmit() {
