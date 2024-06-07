@@ -230,15 +230,16 @@
     margin: 0 auto; /* Center the section */
   }
   #revenue {
-    background-color: #e0e0e0;
+    background-color: #f0f0f0;
   }
 
   #svod {
-    background-color: #e0e0e0;
+    background-color: #f0f0f0;
   }
   #original {
-    background-color: #e0e0e0;
+    background-color: #f0f0f0;
   }
+  
   .content-menu {
     position: fixed;
     top: 0;
