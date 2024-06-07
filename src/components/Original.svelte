@@ -27,30 +27,33 @@
         await fetchData();
         drawChart();
 
-        // Always allow the popup to show on refresh
-        sessionStorage.removeItem('popupShown');
+        // Clear the popupShown flag on page load
+        // sessionStorage.removeItem('popupShown');
 
-        const target = document.getElementById('popup-target');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !showPopup && !sessionStorage.getItem('popupSubmitted')) {
-                    showPopup = true;
-                    sessionStorage.setItem('popupShown', 'true'); // Mark as shown for this session
-                }
+        // Check if popup has been shown in this session
+        if (!sessionStorage.getItem('popupSubmitted')) {
+            const target = document.getElementById('popup-target');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                        if (entry.isIntersecting && !showPopup && !sessionStorage.getItem('popupSubmitted')) {
+                            showPopup = true;
+                            sessionStorage.setItem('popupShown', 'true'); // Mark as shown for this session
+                        }
+                });
+            }, {
+                threshold: 1.0
             });
-        }, {
-            threshold: 1.0
-        });
 
-        if (target) {
-            observer.observe(target);
-        }
-
-        return () => {
             if (target) {
-                observer.unobserve(target);
+                observer.observe(target);
             }
-        };
+
+            return () => {
+                if (target) {
+                    observer.unobserve(target);
+                }
+            };
+        }
     });
 
     async function fetchData() {
@@ -204,7 +207,7 @@
 
     function closePopup() {
         showPopup = false;
-        // sessionStorage.setItem('popupSubmitted', 'true'); // Mark as submitted for this session
+        sessionStorage.setItem('popupSubmitted', 'true'); // Mark as submitted for this session
     }
 
     function handleSubmit() {
@@ -214,17 +217,20 @@
 </script>
 
 <style>
+
+    h1 {
+        font-size: 20px;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        margin-top: 70px;
+        margin-bottom: -20px;
+
+    }
     #chart-container {
         display: flex;
         flex-direction: column; /* Ensure elements are stacked in a column layout */
         align-items: center; /* Center alignment */
-        margin-top: 20px; /* Top margin */
-    }
-
-    .page-title {
-        font-size: 20px;
-        font-weight: bold;
-        font-family: Arial, sans-serif
+        margin-top: 40px; /* Top margin */
     }
 
     .chart-and-legend {
@@ -268,7 +274,7 @@
 
     .chart-description {
         text-align: center;
-        margin-top: 10px; /* Increased margin-top for more spacing */
+        margin-top: 20px; /* Increased margin-top for more spacing */
         max-width: 1050px; /* Increased max-width for longer lines */
         font-family: Arial, sans-serif;
         line-height: 1.5;
@@ -280,11 +286,10 @@
     }
 </style>
 
+<h1>Netflix's Strategic Focus: Growth Through Original Content</h1>
+
 <!-- Container to wrap the chart and legend -->
 <div id="chart-container">
-    <!-- Page title -->
-    <div class="page-title">Netflix's Strategic Focus: Growth Through Original Content</div>
-
     <div class="chart-and-legend">
         <!-- Chart container -->
         <div id="chart"></div>

@@ -32,7 +32,7 @@
     const series = stack(data);
 
     const width = 1300, height = 600;
-    const margin = { top: 30, right: 225, bottom: 25, left: 450 };
+    const margin = { top: 120, right: 250, bottom: 70, left: 500 };
     const barWidth = width - margin.left - margin.right;
     const barHeight = height - margin.top - margin.bottom;
     
@@ -175,8 +175,8 @@
     font-size: 20px;
     font-weight: bold;
     font-family: Arial, sans-serif;
-    margin-top: 5px;
-    margin-bottom: 20px;
+    margin-top: 100px;
+    margin-bottom: -20px;
   }
 
   .chart-container {
