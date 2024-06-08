@@ -126,7 +126,10 @@
     <p>
     Looking ahead, what should Netflix do to maintain its competitive edge in the streaming war?
     <p>
-
+    <p>
+    The key takeaway is Netflix's successful adaptation through strategic content creation and profit model evolution. 
+    Our interactive visualizations clearly demonstrate these impactful decisions, aligning perfectly with our project's theme.
+    <p>
 
 
     </p>
@@ -239,7 +242,7 @@
   #original {
     background-color: #f0f0f0;
   }
-  
+
   .content-menu {
     position: fixed;
     top: 0;
