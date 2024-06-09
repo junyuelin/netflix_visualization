@@ -128,7 +128,8 @@
     <p>
     <p>
     The key takeaway is Netflix's successful adaptation through strategic content creation and profit model evolution. 
-    Our interactive visualizations clearly demonstrate these impactful decisions, aligning perfectly with our project's theme.
+    Our interactive visualizations clearly demonstrate these impactful decisions at different times, aligning perfectly with our project's theme.
+    First, we use a timeline to introduce the history, then we use different interactive charts to demonstrate the innovative decisions.
     We hope that our visualizations convey the spirit of keeping pace with the times to our audience.
     <p>
 
